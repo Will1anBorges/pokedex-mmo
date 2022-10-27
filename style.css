@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  text-align: center;
+  min-height: 100vh;
+  background-color: #213547;
+}
+
+#app {
+  display: inline-block;
+  position: relative;
+}
+
+#pokedex {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.poke-img {
+  position: absolute;
+  bottom: 12%;
+  left: 12%;
+  transform: translate(50% , -100%);
+  height: 20%;
+}
+
+.poke-data {
+  position: absolute;
+  color: rgb(209, 208, 208);
+  left: 6%;
+  top: 22%;
+  font-family: 'Kanit', sans-serif;
+  font-size: clamp(5px, 4vw, 30px);
+}
+
+.poke-name {
+  color: rgb(46, 39, 39);
+  text-transform: capitalize;
+}
+
+.form {
+  position: absolute;
+  width: 32%;
+  top: 74%;
+  left: 10.5%;
+}
+
+.input-search {
+  width: 100%;
+  font-family: 'Kanit', sans-serif;
+  font-size: clamp(5px, 2vw, 1em);
+  outline: none;
+  box-shadow: -3px 2px 3px rgb(80, 70, 70) ;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  padding: 3px;
+  color: #213547;
+}
+
+.btns {
+  display: flex;
+  width: 50%;
+  gap: 7%;
+  position: absolute;
+  top: 84%;
+  left: 10%;
+}
+
+.btn {
+  width: 30%;
+  padding: 1%;
+  border: none;
+  border-radius: 5px;
+  font-size: clamp(0.7rem, 20vw, 1rem);
+  font-family: 'Kanit', sans-serif;
+  background-color: #942911;
+  box-shadow: -2px 2px 0px #3f160c;
+  cursor: pointer;
+  color: rgb(209, 208, 208);
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color:#593837;
+  box-shadow: -2px 2px 0 #1d1212;
+  transition: 0.2s;
+}
+
+.btn:active {
+  position: relative;
+  top: 2px;
+  box-shadow: none;
+  font-size: 90%;
+}
