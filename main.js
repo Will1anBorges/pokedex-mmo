@@ -57,5 +57,5 @@ btnNext.addEventListener('click' , () => {
   searchPokemon += 1;
   renderPokemon(searchPokemon);
 });
-
+console.log("alou borges");
 renderPokemon(searchPokemon);
