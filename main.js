@@ -35,10 +35,12 @@ const renderPokemon = async (pokemon) => {
   const data = await fetchPokemon(pokemon);
   
   const audioPokedex = new Audio('/cries/pokedex.mp3');
+  audioPokedex.load();
   audioPokedex.volume = 0.2;
   audioPokedex.play();
 
-  var audioPoke = new Audio(`/cries/${data.id}.wav`);
+  const audioPoke = new Audio(`/cries/${data.id}.wav`);
+  audioPoke.load();
   audioPoke.volume = 0.2;
   audioPoke.play();
 
