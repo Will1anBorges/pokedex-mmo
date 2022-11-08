@@ -34,11 +34,11 @@ const renderPokemon = async (pokemon) => {
   
   const data = await fetchPokemon(pokemon);
   
-  const audioPokedex = new Audio('/public/cries/pokedex.mp3');
+  const audioPokedex = new Audio('/cries/pokedex.mp3');
   audioPokedex.volume = 0.2;
   audioPokedex.play();
 
-  var audioPoke = new Audio(`/public/cries/${data.id}.wav`);
+  var audioPoke = new Audio(`/cries/${data.id}.wav`);
   audioPoke.volume = 0.2;
   audioPoke.play();
 
@@ -287,7 +287,7 @@ btnPrev.addEventListener('click' , () => {
 } else if (searchPokemon == 0) {
   renderPokemon(643)
 } else {renderPokemon(644)}
-  let audio = new Audio('/public/cries/btn.mp3');
+  let audio = new Audio('/cries/btn.mp3');
   audio.volume = 0.1;
   audio.play();
 });
@@ -295,7 +295,7 @@ btnPrev.addEventListener('click' , () => {
 btnNext.addEventListener('click' , () => {
   searchPokemon += 1;
   renderPokemon(searchPokemon);
-  let audio = new Audio('/public/cries/btn.mp3');
+  let audio = new Audio('/cries/btn.mp3');
   audio.volume = 0.1;
   audio.play();
 });
