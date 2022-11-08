@@ -11,13 +11,82 @@
 <body>
   
   <main id="app">
-    <img class="poke-img" src="" alt="">   
+    <div class="back-img">
+      <img class="poke-img" src="" alt="">
+    </div>   
     
     <h1 class="poke-data">
       <span class="poke-number"></span> -
       <span class="poke-name"></span>
     </h1>
 
+      <!-- <audio autoplay>
+        <source src="/public/cries/1.wav" type="audio/wav">
+      </audio> -->
+    
+    <div class="navbar">
+      <button class="nav btn-sumary">SUMARY</button>
+      <button class="nav btn-moves">MOVES</button>
+      <button class="nav btn-stats">STATS</button>
+      <button class="nav btn-find">FIND</button>
+    </div>
+
+    <div class="sumary">
+
+      <form class="content">
+        <label class="typeLabel">Type</label>
+        <span class="input type"></span>
+        <span class="input secondType"></span>
+        
+      </form>
+
+      <form class="content">
+        <label>Description</label>
+        <textarea class="input description" type="text" readonly></textarea>
+      </form>
+      
+      <form class="content">
+        <label>Height</label>
+        <span class="input height"></span>
+      </form>
+      
+      <form class="content">
+        <label>Weight</label>
+        <span class="input weight"></span>
+      </form>
+      
+      <form class="content">
+        <label>Abilities</label>
+        <span class="input abilities"></span>
+      </form>
+      
+      <form class="content">
+        <label>Hidden Ability</label>
+        <span class="input hidenAbility"></span>
+      </form>
+      
+      <form class="content">
+        <label>Held Items</label>
+        <span class="input held"></span>
+      </form>
+      
+      <form class="content">
+        <label>Egg Group</label>
+        <span class="input egg"></span>
+      </form>
+
+      <form class="content">
+        <label>EV Yield</label>
+        <input class="input" type="text" readonly placeholder="+2 Sp. Attack, +1 Sp. Defense">
+      </form>
+
+      <form class="content">
+        <label>PvP Tier</label>
+        <input class="input" type="text" readonly placeholder="Over Used">
+      </form>
+
+    </div>
+      
     <form class="form">
       <input type="search" class="input-search" placeholder="Pokemon Name or ID" required>
     </form>
