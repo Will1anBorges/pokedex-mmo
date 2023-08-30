@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokedéx PokeMMO</title>
+  <script type="module" defer src="main.js"></script>
+  <link rel="icon" href="/icon.svg">
+  <link rel="stylesheet" href="style.css">
+<body>
+  
+  <main id="app">
+    <div class="back-img">
+      <img id="poke-img" src="" alt="">
+    </div>   
+    
+    <h1 class="poke-data">
+      <span class="poke-number"></span> -
+      <span class="poke-name"></span>
+    </h1>
+
+    <nav class="navbar">
+      <ul>
+        <li>
+          <input type="radio" class="tabs" id="tab" name="tab" checked>
+          <label class="nav-label" for="tab">Sumary</label>
+          <div class="tab-content">
+              <form class="content">
+                <label class="typeLabel">Type</label>
+                <span class="input type"></span>
+                <span class="input secondType"></span>
+              </form>
+        
+              <form class="content">
+                <label>Description</label>
+                <textarea class="description" type="text" readonly></textarea>
+              </form>
+              
+              <form class="content">
+                <label>Height</label>
+                <span class="input height"></span>
+              </form>
+              
+              <form class="content">
+                <label>Weight</label>
+                <span class="input weight"></span>
+              </form>
+              
+              <form class="content">
+                <label>Ability</label>
+                <span class="input ability"></span>
+              </form>
+              
+              <form class="content">
+                <label>Hidden Ability</label>
+                <span class="input hidenAbility"></span>
+              </form>
+              
+              <form class="content">
+                <label>Held Items</label>
+                <span class="input held"></span>
+              </form>
+              
+              <form class="content">
+                <label>Egg Group</label>
+                <span class="egg"></span>
+                <span class="egg2"></span>
+              </form>
+        
+              <form class="content">
+                <label>EV Yield</label>
+                <!-- <input class="input" type="text" readonly placeholder="+2 Sp. Attack, +1 Sp. Defense"> -->
+                <span class="input" id="EffortValue"></span>
+              </form>
+        
+              <form class="content">
+                <label>PvP Tier</label>
+                <input class="input" type="text" readonly placeholder="Over Used">
+              </form>
+          </div>
+          
+        </li>
+        <li>
+          <input type="radio" class="tabs" id="tab2" name="tab">
+          <label class="nav-label" for="tab2">Moves</label>
+          <div class="tab-content">
+            <form class="content-mov">
+              <label>Move</label>
+              <span class="input move"></span>
+            </form>
+          </div>
+        </li>
+        <li>
+          <input type="radio" class="tabs" id="tab3" name="tab">
+          <label class="nav-label" for="tab3">Stats</label>
+          <div class="tab-content">
+            <div class="row">
+              <div class="statLabels">
+                <label class="statsContent">Health</label>
+                <label class="statsContent">Attack</label>
+                <label class="statsContent">Defense</label>
+                <label class="statsContent">Sp.Attack</label>
+                <label class="statsContent">Sp.Defense</label>
+                <label class="statsContent">Speed</label>
+                <br>
+                <label class="statsContent">Total</label>
+              </div>
+  
+              <div class="statsBars">
+                <span class="barsContent stat healthBar"></span>
+                <span class="barsContent stat attackBar"></span>
+                <span class="barsContent stat defenseBar"></span>
+                <span class="barsContent stat sp-attackBar"></span>
+                <span class="barsContent stat sp-defenseBar"></span>
+                <span class="barsContent stat speedBar"></span>
+                <!-- <br> -->
+              </div>
+              <div class="statsNum">
+                <span class="numContent healthNum"></span>
+                <span class="numContent attackNum"></span>
+                <span class="numContent defenseNum"></span>
+                <span class="numContent sp-attackNum"></span>
+                <span class="numContent sp-defenseNum"></span>
+                <span class="numContent speedNum"></span>
+                <br>
+                <span class="numContent totalStats"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <input type="radio" class="tabs" id="tab4" name="tab">
+          <label class="nav-label" for="tab4">Find</label>
+          <div class="tab-content">dddddd</div>
+        </li>
+      </ul>
+    </nav>
+    
+
+    </div>
+      
+    <form class="form">
+      <input type="search" class="input-search" placeholder="Pokemon Name or ID" required>
+    </form>
+
+    <img id="pokedex" src="/pokedex.svg" alt="Pokedéx">
+
+    <!-- <button class="btnShiny"> -->
+      <img id="notShinyIcon" src="/public/notShiny.svg" alt="ShinyButton">
+      
+    <div class="btns">
+      <button class="btn btn-prev">Prev &lt;</button>
+      <button class="btn btn-next">Next &gt; </button>
+    </div>
+  </main>
+
+</body>
+</html>
