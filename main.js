@@ -15,7 +15,6 @@ const Components = {
 }
 
 const notShinyIcon = document.getElementById('notShinyIcon');
-const btnShiny = document.querySelector('.btnShiny');
 const input = document.querySelector('.input-search');
 const form = document.querySelector('.form');
 const btnPrev = document.querySelector('.btn-prev');
@@ -36,8 +35,6 @@ const calculateTotalStats = document.querySelector('.totalStats');
 const divStatsBars = document.querySelector('.statsBars');
 const divStatsNum = document.querySelector('.statsNum')
 
-// const totalNum = document.querySelector('.totalNums');
-// const moveLength = move.length;
 let isShiny = false;
 let searchPokemon = 1;
 
@@ -107,20 +104,6 @@ const fetchPokemon = async (pokemon) => {
         calculateTotalStats.innerHTML = calculateAverage(data.stats)
         input.value = ''
         searchPokemon = data.id >= 644 ? data.id = 0 : data.id
-        
-        // const MovN = (data) => {
-        //   const moves = data.moves
-        //   for(const moveNum in moves) {
-        //     console.log(data['moves'][moveNum]['move']['name']);
-            
-        //     const movNu = data['moves'][moveNum]['move']['name'];
-        //     const move = document.querySelector('.move');
-            
-        //     move.innerHTML = movNu;
-        //   }}
-          
-        //   MovN(data)
-        
 
     
     if (data && data.sprites && data.sprites.versions) {
