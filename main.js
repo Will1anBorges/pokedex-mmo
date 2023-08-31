@@ -292,9 +292,9 @@ notShinyIcon.addEventListener("click", () => {
   isShiny = !isShiny;
   
   if (isShiny) {
-    notShinyIcon.src = './public/shiny.svg';
+    notShinyIcon.src = '.shiny.svg';
   } else {
-    notShinyIcon.src = "./public/notShiny.svg";
+    notShinyIcon.src = ".notShiny.svg";
     }
   renderPokemon(searchPokemon);
 });
