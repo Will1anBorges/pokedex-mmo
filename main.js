@@ -413,7 +413,7 @@ function atualizarMovesPokemon() {
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
-  Components.pokemonImage.src = '/public/loading3.gif'
+  Components.pokemonImage.src = '/loading3.gif'
   let value = input.value
   
   if(value > 644) {
@@ -432,7 +432,7 @@ form.addEventListener('submit', (event) => {
 ////////////////////////////////////* BUTTONS //////////////////////////////////
 
 btnPrev.addEventListener('click' , () => {
-  Components.pokemonImage.src = '/public/loading3.gif'
+  Components.pokemonImage.src = '/loading3.gif'
   if (searchPokemon > 1) {
   searchPokemon -= 1;
   setTimeout(() => {
@@ -445,7 +445,7 @@ btnPrev.addEventListener('click' , () => {
 }});
   
 btnNext.addEventListener('click' , () => {
-  Components.pokemonImage.src = '/public/loading3.gif'
+  Components.pokemonImage.src = '/loading3.gif'
   searchPokemon += 1;
   setTimeout(() => {
     renderPokemon(searchPokemon);
@@ -457,13 +457,13 @@ btnNext.addEventListener('click' , () => {
 });
 
 notShinyIcon.addEventListener("click", () => {
-  Components.pokemonImage.src = '/public/loading3.gif'
+  Components.pokemonImage.src = '/loading3.gif'
   isShiny = !isShiny;
   
   if (isShiny) {
-    notShinyIcon.src = '/public/shiny.svg';
+    notShinyIcon.src = '/shiny.svg';
   } else {
-    notShinyIcon.src = "/public/notShiny.svg";
+    notShinyIcon.src = "/notShiny.svg";
     }
   renderPokemon(searchPokemon);
 });
