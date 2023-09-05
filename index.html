@@ -51,6 +51,11 @@
                 <label>Ability</label>
                 <span class="input ability"></span>
               </form>
+
+              <form class="content">
+                <label>Second Ability</label>
+                <span class="input ability2"></span>
+              </form>
               
               <form class="content">
                 <label>Hidden Ability</label>
@@ -63,20 +68,14 @@
               </form>
               
               <form class="content">
-                <label>Egg Group</label>
+                <label>Egg Groups</label>
                 <span class="egg"></span>
                 <span class="egg2"></span>
               </form>
         
               <form class="content">
                 <label>EV Yield</label>
-                <!-- <input class="input" type="text" readonly placeholder="+2 Sp. Attack, +1 Sp. Defense"> -->
                 <span class="input" id="EffortValue"></span>
-              </form>
-        
-              <form class="content">
-                <label>PvP Tier</label>
-                <input class="input" type="text" readonly placeholder="Over Used">
               </form>
           </div>
           
@@ -84,46 +83,50 @@
         <li>
           <input type="radio" class="tabs" id="tab2" name="tab">
           <label class="nav-label" for="tab2">Moves</label>
-          <div class="tab-content">
-            <form class="content-mov">
-              <label>Move</label>
-              <span class="input move"></span>
-            </form>
+          <div class="tab-content scroll">
+            <div class="moveLvl" id="move-details-container"></div>
+            <div class="moveTm" id="moveTm-details-container"></div>
+            <div class="moveEgg" id="moveEgg-details-container"></div>
+            <div class="moveTutor" id="moveTutor-details-container"></div>
           </div>
         </li>
         <li>
           <input type="radio" class="tabs" id="tab3" name="tab">
           <label class="nav-label" for="tab3">Stats</label>
           <div class="tab-content">
-            <div class="row">
+            <div class="column">
               <div class="statLabels">
-                <label class="statsContent">Health</label>
-                <label class="statsContent">Attack</label>
-                <label class="statsContent">Defense</label>
-                <label class="statsContent">Sp.Attack</label>
-                <label class="statsContent">Sp.Defense</label>
-                <label class="statsContent">Speed</label>
-                <br>
-                <label class="statsContent">Total</label>
+                <label class="LabelStat">Health</label>
+                <span class="barsContent statsBars healthBar"></span>
+                <span class="numContent statsNum healthNum"></span>
               </div>
-  
-              <div class="statsBars">
-                <span class="barsContent stat healthBar"></span>
-                <span class="barsContent stat attackBar"></span>
-                <span class="barsContent stat defenseBar"></span>
-                <span class="barsContent stat sp-attackBar"></span>
-                <span class="barsContent stat sp-defenseBar"></span>
-                <span class="barsContent stat speedBar"></span>
-                <!-- <br> -->
+              <div class="statLabels">
+                <label class="LabelStat">Attack</label>
+                <span class="barsContent statsBars attackBar"></span>
+                <span class="numContent statsNum attackNum"></span>
               </div>
-              <div class="statsNum">
-                <span class="numContent healthNum"></span>
-                <span class="numContent attackNum"></span>
-                <span class="numContent defenseNum"></span>
-                <span class="numContent sp-attackNum"></span>
-                <span class="numContent sp-defenseNum"></span>
-                <span class="numContent speedNum"></span>
-                <br>
+              <div class="statLabels">
+                <label class="LabelStat">Defense</label>
+                <span class="barsContent statsBars defenseBar"></span>
+                <span class="numContent statsNum defenseNum"></span>
+              </div>
+              <div class="statLabels">
+                <label class="LabelStat">Sp.Attack</label>
+                <span class="barsContent statsBars sp-attackBar"></span>
+                <span class="numContent statsNum sp-attackNum"></span>
+              </div>
+              <div class="statLabels">
+                <label class="LabelStat">Sp.Defense</label>
+                <span class="barsContent statsBars sp-defenseBar"></span>
+                <span class="numContent statsNum sp-defenseNum"></span>
+              </div>
+              <div class="statLabels">
+                <label class="LabelStat">Speed</label>
+                <span class="barsContent statsBars speedBar"></span>
+                <span class="numContent statsNum speedNum"></span>
+              </div>
+              <div class="statLabels">
+                <label>Total</label>
                 <span class="numContent totalStats"></span>
               </div>
             </div>
@@ -146,7 +149,7 @@
 
     <img id="pokedex" src="/pokedex.svg" alt="Pokedéx">
 
-    <!-- <button class="btnShiny"> -->
+
       <img id="notShinyIcon" src="/public/notShiny.svg" alt="ShinyButton">
       
     <div class="btns">

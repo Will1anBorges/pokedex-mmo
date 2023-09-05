@@ -8,7 +8,8 @@ const Components = {
   height : document.querySelector('.height'),
   weight : document.querySelector('.weight'),
   ability : document.querySelector('.ability'),
-  hidenAbility : document.querySelector('.hidenAbility'),
+  ability2 : document.querySelector('.ability2'),
+  hiddenAbility : document.querySelector('.hidenAbility'),
   held : document.querySelector('.held'),
   egg : document.querySelector('.egg'),
   egg2 : document.querySelector('.egg2'), 
@@ -34,10 +35,12 @@ const speedNum = document.querySelector('.speedNum');
 const speedBar = document.querySelector('.speedBar');
 const calculateTotalStats = document.querySelector('.totalStats');
 const divStatsBars = document.querySelector('.statsBars');
-const divStatsNum = document.querySelector('.statsNum')
+const divStatsNum = document.querySelector('.statsNum');
+const divMoves = document.getElementById('move-details-container');
+const divMovesTM = document.getElementById('moveTm-details-container');
+const divMovesEgg = document.getElementById('moveEgg-details-container');
+const divMovesTutor = document.getElementById('moveTutor-details-container');
 
-// const totalNum = document.querySelector('.totalNums');
-// const moveLength = move.length;
 let isShiny = false;
 let searchPokemon = 1;
 
@@ -60,6 +63,8 @@ const fetchPokemon = async (pokemon) => {
       return descResponse
     }
     
+
+
   const renderPokemon = async (pokemon) => {
     Components.pokemonName.innerHTML = 'Loading ..'
     Components.pokemonNumber.innerHTML = '';
@@ -75,21 +80,28 @@ const fetchPokemon = async (pokemon) => {
         console.log('Não foi possível captar o audio do pokemon!',e)
       }
       
-      try {
-        const audioPoke = new Audio(`/cries/${data.id}.wav`);
-        audioPoke.load();
-        audioPoke.volume = 0.1;
-        audioPoke.play();
-      } catch (e) {
-        console.log('Não foi possível captar o audio do pokemon!',e)
-      }
-
-      const calculateAverage = (stats) => {
-        const sum = stats.reduce((total, stat) => total + stat.base_stat, 0);
-        return (sum);
-      }
-      
       if (data) {
+   
+        if (data && data.sprites && data.sprites.versions) {
+          const spriteVariant = isShiny ? 'front_shiny' : 'front_default';
+          const spriteUrl = data.sprites.versions['generation-v']['black-white']['animated'][spriteVariant];
+          
+          if (spriteUrl) {
+            Components.pokemonImage.src = spriteUrl;
+          }
+
+          setTimeout(() => {
+            
+            try {
+              const audioPoke = new Audio(`/cries/${data.id}.wav`);
+              audioPoke.load();
+              audioPoke.volume = 0.1;
+              audioPoke.play();
+            } catch (e) {
+              console.log('Não foi possível captar o audio do pokemon!',e)
+            }        
+          }, 800);
+        };
         
         Components.pokemonImage.style.display = 'block';
         Components.pokemonName.innerHTML = data.name;
@@ -97,40 +109,43 @@ const fetchPokemon = async (pokemon) => {
         Components.type.innerHTML = data['types']['0']['type']['name'];
         Components.secondType.innerHTML = data.types['1'] ? data ['types']['1']['type']['name'] : Components.secondType.innerHTML = "None";
         Components.description.innerHTML = desc['flavor_text_entries']['0']['flavor_text'];
-        Components.height.innerHTML = data.height;
-        Components.weight.innerHTML = data.weight;
+        Components.height.innerHTML = adicionarPontoAntesDoUltimoNumero(data.height) + ' mts'
+        Components.weight.innerHTML = adicionarPontoAntesDoUltimoNumero(data.weight) + ' kgs'
         Components.ability.innerHTML = data['abilities']['0']['ability']['name'];
-        Components.hidenAbility.innerHTML = data.abilities['1'] ? data.abilities['1']['ability']['name'] : Components.hidenAbility.innerHTML = "None";
+        Components.ability2.innerHTML = '';
+        Components.hiddenAbility.innerHTML = '';
+        
+        if(data.abilities['1'] != undefined){
+          data.abilities['1']['is_hidden'] == false ? Components.ability2.innerHTML = data.abilities['1']['ability']['name'] : Components.ability2.innerHTML = "None";
+        } else {
+          Components.ability2.innerHTML = "None";
+        }
+
+        if(data.abilities['1'] != undefined){
+          data.abilities['1']['is_hidden'] == true ? Components.hiddenAbility.innerHTML = data.abilities['1']['ability']['name'] : Components.hiddenAbility.innerHTML = "None";
+        } else if(data.abilities['1'] == undefined) {
+          Components.hiddenAbility.innerHTML = "None";
+        }
+
+        if(data.abilities['2'] != undefined){
+          data.abilities['2']['is_hidden'] == true ? Components.hiddenAbility.innerHTML = data.abilities['2']['ability']['name'] : Components.hiddenAbility.innerHTML = "None";
+        } else if (data.abilities['1'] == undefined && data.abilities['2'] == undefined){
+          Components.hiddenAbility.innerHTML = "None";
+        }
+
+        // if(data.abilities['1']['is_hidden'] == true){
+        //   Components.hiddenAbility.innerHTML = data.abilities['1']['ability']['name']
+        // } else if(data.abilities['2']['is_hidden'] == true){
+        //   Components.hiddenAbility.innerHTML = data.abilities['2']['ability']['name']
+        // } else {
+        //   Components.hiddenAbility.innerHTML = "None";
+        // }
+
         Components.held.innerHTML = data.held_items['0'] ? data.held_items['0']['item']['name'] : Components.held.innerHTML = "None";
         Components.egg.innerHTML = desc['egg_groups']['0']['name'];
-        Components.egg2.innerHTML = desc['egg_groups']['1'] ? desc['egg_groups']['1']['name'] : Components.egg2.innerHTML = "None" ;
-        calculateTotalStats.innerHTML = calculateAverage(data.stats)
+        Components.egg2.innerHTML = desc['egg_groups']['1'] ? desc['egg_groups']['1']['name'] : Components.egg2.innerHTML = "No eggs" ;
         input.value = ''
-        searchPokemon = data.id >= 644 ? data.id = 0 : data.id
-        
-        // const MovN = (data) => {
-        //   const moves = data.moves
-        //   for(const moveNum in moves) {
-        //     console.log(data['moves'][moveNum]['move']['name']);
-            
-        //     const movNu = data['moves'][moveNum]['move']['name'];
-        //     const move = document.querySelector('.move');
-            
-        //     move.innerHTML = movNu;
-        //   }}
-          
-        //   MovN(data)
-        
-
-    
-    if (data && data.sprites && data.sprites.versions) {
-      const spriteVariant = isShiny ? 'front_shiny' : 'front_default';
-      const spriteUrl = data.sprites.versions['generation-v']['black-white']['animated'][spriteVariant];
-      
-      if (spriteUrl) {
-        Components.pokemonImage.src = spriteUrl;
-      }
-    };
+        searchPokemon = data.id > 644 ? data.id = 0 : data.id
     
       if (Components.type.innerHTML == "grass") {
       Components.type.style.background = '#568f00';
@@ -210,20 +225,38 @@ const fetchPokemon = async (pokemon) => {
         Components.secondType.style.background = 'linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%)';
       }
 
+      function adicionarPontoAntesDoUltimoNumero(numero) {
+        let numeroString = numero.toString();
+      
+        if (numeroString.length >= 1) 
+          numeroString = numeroString.slice(0, -1) + '.' + numeroString.slice(-1);
+      
+        const numeroFormatado = parseFloat(numeroString);
+    
+        return numeroFormatado;
+      }
+
 ////////////////////////////////////* STATS BAR//////////////////////////////////
 
+      const calculateAverage = (stats) => {
+        const sum = stats.reduce((total, stat) => total + stat.base_stat, 0);
+        return (sum);
+      }
+
       healthNum.innerHTML = data['stats']['0']['base_stat'];
-      healthBar.style.width = healthNum.innerHTML >= 230 ? healthNum.innerHTML / 2.6 + '%' : healthNum.innerHTML / 2 + '%';
+      healthBar.style.width = healthNum.innerHTML >= 230 ? healthNum.innerHTML / 2.55 + '%' : healthNum.innerHTML / 3.2 + '%';
       attackNum.innerHTML = data['stats']['1']['base_stat'];
-      attackBar.style.width = attackNum.innerHTML >= 230 ? attackNum.innerHTML / 2.6 + '%' : attackNum.innerHTML / 2 + '%';
+      attackBar.style.width = attackNum.innerHTML >= 230 ? attackNum.innerHTML / 2.55 + '%' : attackNum.innerHTML / 3.2 + '%';
       defenseNum.innerHTML = data['stats']['2']['base_stat'];
-      defenseBar.style.width = defenseNum.innerHTML >= 230 ? defenseNum.innerHTML / 2.6 + '%' : defenseNum.innerHTML / 2 + '%';
+      defenseBar.style.width = defenseNum.innerHTML >= 230 ? defenseNum.innerHTML / 2.55 + '%' : defenseNum.innerHTML / 3.2 + '%';
       spAttackNum.innerHTML = data['stats']['3']['base_stat'];
-      spAttackBar.style.width = spAttackNum.innerHTML >= 230 ? spAttackNum.innerHTML / 2.6 + '%' : spAttackNum.innerHTML / 2 + '%';
+      spAttackBar.style.width = spAttackNum.innerHTML >= 230 ? spAttackNum.innerHTML / 2.55 + '%' : spAttackNum.innerHTML / 3.2 + '%';
       spDefenseNum.innerHTML = data['stats']['4']['base_stat'];
-      spDefenseBar.style.width = spDefenseNum.innerHTML >= 230 ? spDefenseNum.innerHTML / 2.6 + '%' : spDefenseNum.innerHTML / 2 + '%';
+      spDefenseBar.style.width = spDefenseNum.innerHTML >= 230 ? spDefenseNum.innerHTML / 2.55 + '%' : spDefenseNum.innerHTML / 3.2 + '%';
       speedNum.innerHTML = data['stats']['5']['base_stat'];
-      speedBar.style.width = speedNum.innerHTML >= 230 ? speedNum.innerHTML / 2.6 + '%' : speedNum.innerHTML / 2 + '%';
+      speedBar.style.width = speedNum.innerHTML >= 230 ? speedNum.innerHTML / 2.55 + '%' : speedNum.innerHTML / 3.2 + '%';
+      calculateTotalStats.innerHTML = calculateAverage(data.stats)
+
 
       divStatsBars.style.display = 'flex';
       divStatsNum.style.display = 'flex';
@@ -234,6 +267,8 @@ const fetchPokemon = async (pokemon) => {
       statsColor(spAttackNum,spAttackBar);
       statsColor(spDefenseNum,spDefenseBar);
       statsColor(speedNum,speedBar);
+
+    
 
 ////////////////////////*EV YIELD INNER HTML////////////////////
 
@@ -249,6 +284,127 @@ const fetchPokemon = async (pokemon) => {
   
       EffortValue.innerHTML = htmlContent;
 
+
+      //////////////////////////*MOVE LIST/////////////////////////////////
+
+
+function atualizarMovesPokemon() {
+  
+  divMoves.innerHTML = '';
+  divMovesTM.innerHTML = '';
+  divMovesEgg.innerHTML = '';
+  divMovesTutor.innerHTML = '';
+
+  //? Moves by Level
+  const moveNames = document.createElement('div');
+  moveNames.classList.add('move-name');
+  const nameLabel = document.createElement('label');
+  nameLabel.textContent = 'Nome:';
+  const moveLevel = document.createElement('div');
+  moveLevel.classList.add('move-level');
+  const levelLabel = document.createElement('label');
+  levelLabel.textContent = 'Nível:';
+  const moveMethod = document.createElement('div');
+  moveMethod.classList.add('move-method');
+  const methodLabel = document.createElement('label');
+  methodLabel.textContent = 'Método:';
+
+  divMoves.appendChild(moveNames);
+  moveNames.appendChild(nameLabel);
+  divMoves.appendChild(moveLevel);
+  moveLevel.appendChild(levelLabel);
+  divMoves.appendChild(moveMethod);
+  moveMethod.appendChild(methodLabel);
+
+  //? Moves by TM
+  const moveNamesTM = document.createElement('div');
+  moveNamesTM.classList.add('move-nameTm');
+  const nameLabelTM = document.createElement('label');
+  const moveLevelTM = document.createElement('div');
+  moveLevelTM.classList.add('move-levelTm');
+  const levelLabelTM = document.createElement('label');
+  const moveMethodTM = document.createElement('div');
+  moveMethodTM.classList.add('move-methodTm');
+  const methodLabelTM = document.createElement('label');
+ 
+  divMovesTM.appendChild(moveNamesTM);
+  moveNamesTM.appendChild(nameLabelTM);
+  divMovesTM.appendChild(moveLevelTM);
+  moveLevelTM.appendChild(levelLabelTM);
+  divMovesTM.appendChild(moveMethodTM);
+  moveMethodTM.appendChild(methodLabelTM);
+
+  //? Moves by Egg
+  const moveNamesEgg = document.createElement('div');
+  moveNamesEgg.classList.add('move-nameTm');
+  const nameLabelEgg = document.createElement('label');
+  const moveLevelEgg = document.createElement('div');
+  moveLevelEgg.classList.add('move-levelTm');
+  const levelLabelEgg = document.createElement('label');
+  const moveMethodEgg = document.createElement('div');
+  moveMethodEgg.classList.add('move-methodTm');
+  const methodLabelEgg = document.createElement('label');
+ 
+  divMovesEgg.appendChild(moveNamesEgg);
+  moveNamesEgg.appendChild(nameLabelEgg);
+  divMovesEgg.appendChild(moveLevelEgg);
+  moveLevelEgg.appendChild(levelLabelEgg);
+  divMovesEgg.appendChild(moveMethodEgg);
+  moveMethodEgg.appendChild(methodLabelEgg);
+
+  //? Moves by Tutor
+  const moveNamesTutor = document.createElement('div');
+  moveNamesTutor.classList.add('move-nameTm');
+  const nameLabelTutor = document.createElement('label');
+  const moveLevelTutor = document.createElement('div');
+  moveLevelTutor.classList.add('move-levelTm');
+  const levelLabelTutor = document.createElement('label');
+  const moveMethodTutor = document.createElement('div');
+  moveMethodTutor.classList.add('move-methodTm');
+  const methodLabelTutor = document.createElement('label');
+ 
+  divMovesTutor.appendChild(moveNamesTutor);
+  moveNamesTutor.appendChild(nameLabelTutor);
+  divMovesTutor.appendChild(moveLevelTutor);
+  moveLevelTutor.appendChild(levelLabelTutor);
+  divMovesTutor.appendChild(moveMethodTutor);
+  moveMethodTutor.appendChild(methodLabelTutor);
+
+
+  // Itera sobre os movimentos no conjunto de dados
+  for (const move of data.moves) {
+      
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = move.move.name;
+      
+      const levelSpan = document.createElement('span');
+      levelSpan.textContent = move.version_group_details[0].level_learned_at;
+      
+      const methodSpan = document.createElement('span');
+      methodSpan.textContent = move.version_group_details[0].move_learn_method.name;
+
+      if(move.version_group_details[0].move_learn_method.name == "level-up"){
+      // Adiciona os elementos ao elemento pai
+      moveNames.appendChild(nameSpan);
+      moveLevel.appendChild(levelSpan);
+      moveMethod.appendChild(methodSpan);
+      } if(move.version_group_details[0].move_learn_method.name == "machine"){
+      moveNamesTM.appendChild(nameSpan);
+      moveLevelTM.appendChild(levelSpan);
+      moveMethodTM.appendChild(methodSpan);
+      } if(move.version_group_details[0].move_learn_method.name == "egg"){
+        moveNamesEgg.appendChild(nameSpan);
+        moveLevelEgg.appendChild(levelSpan);
+        moveMethodEgg.appendChild(methodSpan);
+      } if(move.version_group_details[0].move_learn_method.name == "tutor"){
+        moveNamesTutor.appendChild(nameSpan);
+        moveLevelTutor.appendChild(levelSpan);
+        moveMethodTutor.appendChild(methodSpan);
+      }
+    }
+}
+    atualizarMovesPokemon();
+    
     } else {
       limpaCampos(Components)
     }
@@ -256,14 +412,19 @@ const fetchPokemon = async (pokemon) => {
   }
 
 form.addEventListener('submit', (event) => {
-  event.preventDefault();   
+  event.preventDefault();
+  Components.pokemonImage.src = '/public/loading3.gif'
   let value = input.value
   
   if(value > 644) {
-    renderPokemon(0)
+    setTimeout(() => {
+      renderPokemon(0);
+    }, 500);
     input.value = ''
   } else {
+    setTimeout(() => {
     renderPokemon(input.value.toLowerCase());
+  }, 500);
   }
 }
 );
@@ -271,24 +432,32 @@ form.addEventListener('submit', (event) => {
 ////////////////////////////////////* BUTTONS //////////////////////////////////
 
 btnPrev.addEventListener('click' , () => {
+  Components.pokemonImage.src = '/public/loading3.gif'
   if (searchPokemon > 1) {
   searchPokemon -= 1;
-  renderPokemon(searchPokemon);
-  }
+  setTimeout(() => {
+    renderPokemon(searchPokemon);
+  }, 500);
   let audio = new Audio('/cries/btn.mp3');
   audio.volume = 0.1;
   audio.play();
-});
+
+}});
   
 btnNext.addEventListener('click' , () => {
+  Components.pokemonImage.src = '/public/loading3.gif'
   searchPokemon += 1;
-  renderPokemon(searchPokemon);
+  setTimeout(() => {
+    renderPokemon(searchPokemon);
+  }, 500);
+
   let audio = new Audio('/cries/btn.mp3');
   audio.volume = 0.1;
   audio.play();
 });
 
 notShinyIcon.addEventListener("click", () => {
+  Components.pokemonImage.src = '/public/loading3.gif'
   isShiny = !isShiny;
   
   if (isShiny) {
@@ -320,8 +489,8 @@ const limpaCampos = (comp) => {
   divStatsBars.style.display = Message.None;
   divStatsNum.style.display = Message.None;
   EffortValue.innerHTML = Message.None;
+  divMoves.innerHTML = '';
   input.value = '';
-  type
 }
 
 class Message {
@@ -368,4 +537,6 @@ function getEffortGreaterThanZero(stats) {
   return result;
 }
 
-renderPokemon(searchPokemon);
+setTimeout(() => {
+  renderPokemon(searchPokemon);
+}, 500);
